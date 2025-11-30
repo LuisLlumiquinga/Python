@@ -1,4 +1,4 @@
-nombre=Luis
+nombre="Luis"
 apellido="Llumiquinga"
 edad=36
 
