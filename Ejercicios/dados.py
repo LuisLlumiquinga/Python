@@ -12,3 +12,5 @@ print(f"Obtuviste un {valorObtenido}")
 if valorObtenido==6:
     print("Felicidades Ganaste!!")
     print("Estas de suerte")
+else:
+    print("Lo siento, no es tu dia de suerte")

@@ -8,4 +8,6 @@ print(f"El numero correcto era el {numeroAleatorio}")
 if numeroUsuario==numeroAleatorio:
     print("Felicidades Ganaste!!")
     print("Estas de suerte")
-
+else:
+    print("No adivinaste")
+    print("Sigue intentado")
