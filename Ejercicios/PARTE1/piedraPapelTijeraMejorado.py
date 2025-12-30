@@ -1,0 +1,37 @@
+import random
+
+print("Vas a jugar piedra papel o tijera contra el computador")
+print("Para PIEDRA digita 1")
+print("Para PAPEL digita 2")
+print("Para TIJERA digita 3")
+
+miEleccion=int(input("Escoge una opcion: "))
+
+if miEleccion==1:
+    print("ELEGISTE PIEDRA")
+elif miEleccion==2:
+    print("ELEGISTE PAPEL")
+elif miEleccion==3:
+    print("ELEGISTE TIJERA")
+else:
+    print("DEBE ELEGIR UN NUMERO ENTRE 1 y 3")
+
+eleccionCompu=random.randint(1,3)
+
+if eleccionCompu==1:
+    print("LA COMPU ELIGIO PIEDRA")
+elif eleccionCompu==2:
+    print("LA COMPU ELIGIO PAPEL")
+elif eleccionCompu==3:
+    print("LA COMPU ELIGIO TIJERA")
+
+if miEleccion==eleccionCompu:
+    print("EMPATES")
+
+if (miEleccion==1 and eleccionCompu==3) or (miEleccion==2 and eleccionCompu==1) or (miEleccion==3 and eleccionCompu==2):
+    print("LE GANASTE A LA COMPU")
+
+if (miEleccion==1 and eleccionCompu==2) or (miEleccion==2 and eleccionCompu==3) or (miEleccion==3 and eleccionCompu==1):
+    print("TE GANO LA COMPU XD")
+
+print("FIN DEL PROGRAMA")
