@@ -13,3 +13,4 @@ numeros.append(16)
 numeros.append(20)
 
 print(numeros)
+print(len(numeros))
