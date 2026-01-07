@@ -2,11 +2,13 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 from utilNotas import buscarEstudiante
+from utilNotas import calcularTotal
+
 #VARIABLES GLOBALES
 estudiantes=[
-    "1714616123#Santiago#Mosquera#10#2.6#8.5",
-    "0814616123#Santiago#Ramos#9.5#2.6#8.5",
-    "1614616123#Maritza#Ramos#8.3#2.6#7.2"
+    "1714616123#Santiago#Mosquera#10#2.6#8.5#5#7.28",
+    "0814616123#Santiago#Ramos#9.5#2.6#8.5#0#7.65",
+    "1614616123#Maritza#Ramos#8.3#2.6#7.2#0#7.03"
     ]
 
 
@@ -24,6 +26,8 @@ def fnBuscar():
         txtNota1.insert(0,partesEstudiante[3])
         txtNota2.insert(0,partesEstudiante[4])
         txtNota3.insert(0,partesEstudiante[5])
+        txtInasistencias.insert(0,partesEstudiante[6])
+        lblTotal.config(text=partesEstudiante[7])
 
 def obtenerCadena(txtInfo,lblError,minimo):
     valor=txtInfo.get()
@@ -46,8 +50,27 @@ def fnObtenerFloat(txtInfo,lblError,desde,hasta):
     except:
         lblError.config(text="Debe ingresar un número")
     return valorFloat
+
 #FUNCIONES
-def fnObtenerEntero():
+def fnObtenerEntero(txtInfo,lblError,desde,hasta=None):
+    valorInt=None
+    try:
+        valorInt=int(txtInfo.get())
+        if hasta!=None:
+            if valorInt>=desde and valorInt<=hasta:
+                lblError.config(text="")
+                return valorInt
+            else:
+                lblError.config(text=f"Debe ingresar un valor entre {desde} y {hasta}")
+        else:
+            if valorInt>=desde:
+                lblError.config(text="")
+                return valorInt
+            else:
+                lblError.config(text=f"Debe ingresar un valor mayor o igual a {desde}")
+    except:
+        lblError.config(text="Debe ingresar un número")
+    return valorInt
 
     
 def fnGuardar():
@@ -57,11 +80,21 @@ def fnGuardar():
     nota1=fnObtenerFloat(txtNota1,lblErrorNota1,0,10)
     nota2=fnObtenerFloat(txtNota2,lblErrorNota2,0,10)
     nota3=fnObtenerFloat(txtNota3,lblErrorNota3,0,10)
+    inasistencias=fnObtenerEntero(txtInasistencias, lblErrorInasistencias, 0)
+
     estEncontrado=buscarEstudiante(cedula,estudiantes)
+
     if estEncontrado == None: #no existe en la lista
-        if nota1!=None and nota2!=None and nota3!=None and nombre!=None and apellido!=None and cedula!=None:
+        if nota1!=None and nota2!=None and nota3!=None and nombre!=None and apellido!=None and cedula!=None and inasistencias!=None:
             estudiantes.append(f"{cedula}#{nombre}#{apellido}#{nota1}#{nota2}#{nota3}")
+
+            total=calcularTotal(nota1, nota2, nota3, inasistencias)
+
+            lblTotal.config(text=total)
+
             messagebox.showinfo(title="IMPORTANTE", message=f"Estudiante Guardado")      
+
+
     else:
         messagebox.showwarning(title="IMPORTANTE", message=f"Ya existe el estudiante con la cedula {cedula}")
     print(estudiantes)
@@ -73,6 +106,8 @@ def limpiar():
     txtNota1.delete(0,END)
     txtNota2.delete(0,END)
     txtNota3.delete(0,END)
+    lblTotal.config(text="")
+    txtInasistencias.delete(0, END)
 
 def fnNuevo():
     limpiar()

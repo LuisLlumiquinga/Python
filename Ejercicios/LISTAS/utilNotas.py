@@ -18,3 +18,15 @@ def calcularTotal(n1, n2, n3, faltas):
     promedio=(n1+n2+n3+n4)/4
 
     return round(promedio, 2)
+
+def calcularPromedioCurso(listaEstudiante):
+    totalSuma=0
+
+    for est in listaEstudiante:
+        partesEstudiante=est.split("#")
+        
+        totalSuma+=float(partesEstudiante[7])
+    
+    promedio=totalSuma/len(listaEstudiante)
+    
+    return promedio
